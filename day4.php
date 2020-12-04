@@ -7,13 +7,10 @@ $array = explode("\n", fread($myfile, filesize($filename)));
 $array[] = "";
 fclose($myfile);
 $arrlen = count($array);
-$trees = 0;
 $passport = [];
 $res = 0;
-$count = 0;
 $checkarr = ['byr'=>1,'iyr'=>1,'eyr'=>1,'hgt'=>1,'hcl'=>1,'ecl'=>1,'pid'=>1,'cid'=>0];
 $eyeColors = ['amb'=>1,'blu'=>1,'brn'=>1,'gry'=>1,'grn'=>1,'hzl'=>1,'oth'=>1];
-$start = microtime(true);
 foreach($array as $line){ 
     if(!trim($line) == ""){
         $passport = array_merge($passport, preg_split('/ +/', $line));              
@@ -22,7 +19,6 @@ foreach($array as $line){
         $passport = [];
     }
 }
-print(microtime(true)-$start."<br>");
 print($res);
 
 function processPassport($passport){
@@ -42,7 +38,7 @@ function processPassport($passport){
 
 function checkValid($type, $value){
     $res = 0;
-    global $eyeColors, $count;
+    global $eyeColors;
     $value = trim($value);
     switch($type) {
         case "byr":
